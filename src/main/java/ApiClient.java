@@ -11,16 +11,15 @@ class ApiClient {
 
     PostCodeService postCodeSvc = new PostCodeService();
 
-    String getParsedPostCode(String post_code) throws Exception {
-        try{
-            JSONObject response = postCodeSvc.getPostCode(post_code);
-            JSONObject result = response.getJSONObject("result");
-            String country = result.get("country").toString();
-            String region = result.get("region").toString();
-            return String.format("For your postcode %s, found next info: Country: %s, Region: %s.", post_code, country, region);
-        }catch (Exception e){
-            throw e;
-        }
+    List<String> getParsedPostCode(String post_code) throws Exception {
+        ArrayList<String> parsed_response = new ArrayList<>();
+        JSONObject response = postCodeSvc.getPostCode(post_code);
+        JSONObject result = response.getJSONObject("result");
+        String country = result.get("country").toString();
+        String region = result.get("region").toString();
+        parsed_response.add(country);
+        parsed_response.add(region);
+        return parsed_response;
     }
 
     List<Map<String, String>> getParsedNearestPostsCode(String post_code) throws Exception{
@@ -40,6 +39,17 @@ class ApiClient {
         }
         return parsed_result;
 
+    }
+
+    String ifCodeValid(String post_code) throws Exception{
+        JSONObject response = postCodeSvc.isValid(post_code);
+        boolean result = response.getBoolean("result");
+        if (result){
+            return "TRUE";
+        }
+        else{
+            return "FALSE";
+        }
     }
 
 

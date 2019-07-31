@@ -42,7 +42,7 @@ public class PostCodeTester {
             System.out.println("Nearest postcodes received, going to request postcode info!");
             System.out.println(response2.toString());
 
-            boolean response3 = postcodeSvc.isValid(postcodeToValidate);
+            boolean response3 = postcodeSvc.isValid(postcodeToValidate).getBoolean("result");
 
             if (response3){
                 JSONObject response4 = postcodeSvc.getPostCode(postcodeToValidate);

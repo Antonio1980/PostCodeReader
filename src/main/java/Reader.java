@@ -1,10 +1,12 @@
-import com.mashape.unirest.http.exceptions.UnirestException;
+
+import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 
 public class Reader {
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args){
 
         ApiClient apiClient = new ApiClient();
 
@@ -14,12 +16,10 @@ public class Reader {
 
         String post_code = input.next();
 
-        apiClient.postCodeSvc.isValid(post_code);
-
         boolean ifValid = false;
         try {
-            ifValid = apiClient.postCodeSvc.isValid(post_code);
-        } catch (UnirestException e) {
+            ifValid = apiClient.postCodeSvc.isValid(post_code).getBoolean("result");
+        } catch (Exception e) {
             e.printStackTrace();
         }
         if (ifValid){
@@ -38,22 +38,37 @@ public class Reader {
         switch (action){
             case 1:
                 try {
-                    System.out.println(apiClient.getParsedPostCode(post_code));
-                } catch (UnirestException e) {
+                    List<String> res = apiClient.getParsedPostCode(post_code);
+                    if (res != null){
+                        System.out.println(String.format("For your postcode %s, found next info: Country: %s, Region: %s.",
+                                post_code, res.get(0), res.get(1)));
+                    }
+                    else{
+                        System.out.println("Postcodes not found for provided postcode: " + post_code);
+                    }
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
                 break;
             case 2:
                 try {
-                    System.out.println(apiClient.postCodeSvc.isValid(post_code));
-                } catch (UnirestException e) {
+                    String res = apiClient.ifCodeValid(post_code);
+                    System.out.println("Provided postcode: " + post_code + " is VALID? -> " + res);
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
                 break;
             case 3:
                 try {
-                    System.out.println(apiClient.getParsedNearestPostsCode(post_code));
-                } catch (UnirestException e) {
+                    List<Map<String, String>> res = apiClient.getParsedNearestPostsCode(post_code);
+                    if (res != null){
+                        System.out.println("The nearest postcodes for provided postcode " + post_code + " is: \n");
+                        System.out.println(res);
+                    }
+                    else{
+                        System.out.println("Nearest postcodes not found for provided postcode: " + post_code);
+                    }
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
                 break;

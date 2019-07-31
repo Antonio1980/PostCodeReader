@@ -27,11 +27,11 @@ public class PostCodeService extends ServiceBase{
         return Unirest.get(uri).header(this.header_key, this.header_value).asJson().getBody().getObject();
     }
 
-    public boolean isValid(String postcode) throws UnirestException {
+    public JSONObject isValid(String postcode) throws UnirestException {
         String uri = this.baseUrl.concat(postcode).concat("/validate");
 
         System.out.println(uri);
-        return Unirest.get(uri).header(this.header_key, this.header_value).asJson().getBody().getObject().getBoolean("result");
+        return Unirest.get(uri).header(this.header_key, this.header_value).asJson().getBody().getObject();
     }
 
 }
