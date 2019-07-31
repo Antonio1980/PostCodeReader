@@ -4,7 +4,6 @@ import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 
@@ -25,7 +24,7 @@ public class PostCodeService extends ServiceBase{
      * @return
      * @throws Exception
      */
-    public JSONObject getPostCode(String postcode) throws Exception {
+    public JSONObject getPostCode(String postcode) throws UnirestException {
         String uri = this.baseUrl.concat(postcode);
 
         System.out.println("API URL: " + uri);
@@ -49,10 +48,9 @@ public class PostCodeService extends ServiceBase{
      *
      * @param postcode
      * @return
-     * @throws JSONException
      * @throws UnirestException
      */
-    public boolean isValid(String postcode) throws JSONException, UnirestException {
+    public boolean isValid(String postcode) throws UnirestException {
         String uri = this.baseUrl.concat(postcode).concat("/validate");
         System.out.println(uri);
         return Unirest.get(uri).header(this.header_key, this.header_value).asJson()
