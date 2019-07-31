@@ -7,9 +7,6 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 import org.json.JSONObject;
 
 
-/**
- * @author Tanya Haus
- */
 public class PostCodeService extends ServiceBase{
 
     private String baseUrl;
@@ -18,12 +15,6 @@ public class PostCodeService extends ServiceBase{
         this.baseUrl = super.baseUrl + "/postcodes/";
     }
 
-    /**
-     *
-     * @param postcode
-     * @return
-     * @throws Exception
-     */
     public JSONObject getPostCode(String postcode) throws UnirestException {
         String uri = this.baseUrl.concat(postcode);
 
@@ -31,12 +22,6 @@ public class PostCodeService extends ServiceBase{
         return Unirest.get(uri).header(this.header_key, this.header_value).asJson().getBody().getObject();
     }
 
-    /**
-     *
-     * @param postcode
-     * @return
-     * @throws Exception
-     */
     public JSONObject getNearest(String postcode) throws UnirestException {
         String uri = this.baseUrl.concat(postcode).concat("/nearest");
         System.out.println(uri);
@@ -44,12 +29,6 @@ public class PostCodeService extends ServiceBase{
         return jsonResponse.getBody().getObject();
     }
 
-    /**
-     *
-     * @param postcode
-     * @return
-     * @throws UnirestException
-     */
     public boolean isValid(String postcode) throws UnirestException {
         String uri = this.baseUrl.concat(postcode).concat("/validate");
         System.out.println(uri);
@@ -57,4 +36,4 @@ public class PostCodeService extends ServiceBase{
                 .getBody().getObject().getBoolean("result");
     }
 
-}//end of PostCodeService class
+}

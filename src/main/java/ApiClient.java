@@ -7,20 +7,11 @@ import java.util.List;
 import java.util.Map;
 
 
-/**
- * @author Tanya Haus
- */
-public class ApiClient {
+class ApiClient {
 
     PostCodeService postCodeSvc = new PostCodeService();
 
-    /**
-     *
-     * @param post_code
-     * @return
-     * @throws Exception
-     */
-    public String getParsedPostCode(String post_code) throws Exception {
+    String getParsedPostCode(String post_code) throws Exception {
         try{
             JSONObject response = postCodeSvc.getPostCode(post_code);
             JSONObject result = response.getJSONObject("result");
@@ -32,14 +23,8 @@ public class ApiClient {
         }
     }
 
-    /**
-     *
-     * @param post_code
-     * @return
-     * @throws Exception
-     */
-    public List getParsedNearestPostsCode(String post_code) throws Exception{
-        List<Map> parsed_result = new ArrayList();
+    List<Map<String, String>> getParsedNearestPostsCode(String post_code) throws Exception{
+        ArrayList<Map<String, String>> parsed_result = new ArrayList<>();
         JSONObject response = postCodeSvc.getNearest(post_code);
         JSONArray result = (JSONArray) response.get("result");
         for (int i=0; i < result.length() - 1; i++){
@@ -58,5 +43,5 @@ public class ApiClient {
     }
 
 
-}//end of ApiClient class
+}
 

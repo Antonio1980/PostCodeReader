@@ -1,9 +1,6 @@
 package services;
 
 
-/**
- * @author Tanya Haus
- */
 class ServiceBase {
 
     private String protocol = "http://";
@@ -11,4 +8,4 @@ class ServiceBase {
     String header_value = "application/json";
     String baseUrl = protocol + "postcodes.io";
 
-}//end of ServiceBase class
+}

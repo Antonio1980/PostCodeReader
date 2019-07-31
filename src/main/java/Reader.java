@@ -2,10 +2,6 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 import java.util.Scanner;
 
 
-/**
- * @author Tanya Haus
- */
-
 public class Reader {
 
     public static void main(String[] args) throws Exception {
@@ -27,15 +23,13 @@ public class Reader {
             e.printStackTrace();
         }
         if (ifValid){
-            System.out.print("\tPlease choose an available action by number!\n" +
-                             "\t1. GET /postcodes/{POSTCODE}\n" +
-                             "\t2. GET /postcodes/{POSTCODE}/validate\n" +
-                             "\t3. GET /postcodes/{POSTCODE}/nearest\n");
+            System.out.print("\t Please choose an available action by number! \n" +
+                             "\t 1. GET /postcodes/{POSTCODE} \n" +
+                             "\t 2. GET /postcodes/{POSTCODE}/validate\n" +
+                             "\t 3. GET /postcodes/{POSTCODE}/nearest\n");
         }
         else{
-
             System.out.println("PostCode is not valid. Please try again");
-            // Terminate JVM
             System.exit(0);
         }
 
@@ -67,6 +61,6 @@ public class Reader {
                 System.out.println("Default run");
         }
 
-    } // end of main function.
+    }
 
-} // end of Reader class
+}

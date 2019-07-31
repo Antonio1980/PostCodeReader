@@ -14,6 +14,7 @@ public class PostCodeTester {
             System.out.println("------------ Verify that not valid postcode string will return error.");
 
             JSONObject response = postcodeSvc.getPostCode("NOT_EXIST");
+
             if ("Invalid postcode".equals(response.get("error"))){
                 System.out.println(response.toString());
                 System.out.println("Negative test is PASSED!");
@@ -32,6 +33,7 @@ public class PostCodeTester {
 
             for (int i=0; i < result.length() - 1; i++) {
                 JSONObject item = ((JSONObject) result.get(i));
+
                 if(!item.get("postcode").equals(validPostCode)){
                     postcodeToValidate = (String) item.get("postcode");
                 }
@@ -44,6 +46,7 @@ public class PostCodeTester {
 
             if (response3){
                 JSONObject response4 = postcodeSvc.getPostCode(postcodeToValidate);
+
                 if ((Integer) response4.get("status") == 200){
                     System.out.println("going to request postcode info for: " + postcodeToValidate);
                     System.out.println(response4.toString());
@@ -53,7 +56,6 @@ public class PostCodeTester {
             else{
                 System.out.println("------------ Validation test is FAILED! ----------- ");
             }
-
 
         }finally {
             System.out.println("Test run is finished!");
