@@ -15,13 +15,12 @@ public class PostCodeTester {
 
             JSONObject response = postcodeSvc.getPostCode("NOT_EXIST");
             if ("Invalid postcode".equals(response.get("error"))){
+                System.out.println(response.toString());
                 System.out.println("Negative test is PASSED!");
             }
             else{
                 System.out.println("Negative test is FAILED!");
             }
-            System.out.println(response.toString());
-
 
             System.out.println("------------ Validation test ------------ ");
             System.out.println("------------ Verify that postcode that returned in server response on 'GetNearest' exists and valid.");
@@ -46,6 +45,8 @@ public class PostCodeTester {
             if (response3){
                 JSONObject response4 = postcodeSvc.getPostCode(postcodeToValidate);
                 if ((Integer) response4.get("status") == 200){
+                    System.out.println("going to request postcode info for: " + postcodeToValidate);
+                    System.out.println(response4.toString());
                     System.out.println("------------ Validation test is PASSED! ----------- ");
                 }
             }
