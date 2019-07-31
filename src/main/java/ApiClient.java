@@ -1,11 +1,11 @@
 import org.json.JSONArray;
 import services.PostCodeService;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 
 /**
  * @author Tanya Haus
@@ -21,11 +21,15 @@ public class ApiClient {
      * @throws Exception
      */
     public String getParsedPostCode(String post_code) throws Exception {
-        JSONObject response = postCodeSvc.getPostCode(post_code);
-        JSONObject result = response.getJSONObject("result");
-        String country = result.get("country").toString();
-        String region = result.get("region").toString();
-        return String.format("For your postcode %s, found next info: Country: %s, Region: %s.", post_code, country, region);
+        try{
+            JSONObject response = postCodeSvc.getPostCode(post_code);
+            JSONObject result = response.getJSONObject("result");
+            String country = result.get("country").toString();
+            String region = result.get("region").toString();
+            return String.format("For your postcode %s, found next info: Country: %s, Region: %s.", post_code, country, region);
+        }catch (Exception e){
+            throw e;
+        }
     }
 
     /**

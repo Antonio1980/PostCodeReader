@@ -5,14 +5,8 @@ import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import org.apache.commons.logging.Log;
-import org.apache.http.conn.HttpHostConnectException;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.HashMap;
-import java.util.TooManyListenersException;
-import java.util.concurrent.TimeUnit;
-
 
 
 /**
@@ -32,8 +26,10 @@ public class PostCodeService extends ServiceBase{
      * @throws Exception
      */
     public JSONObject getPostCode(String postcode) throws Exception {
-        System.out.println(this.baseUrl.concat(postcode));
-        return Unirest.get(this.baseUrl.concat(postcode)).asJson().getBody().getObject();
+        String uri = this.baseUrl.concat(postcode);
+
+        System.out.println("API URL: " + uri);
+        return Unirest.get(uri).asJson().getBody().getObject();
     }
 
     /**
@@ -43,10 +39,9 @@ public class PostCodeService extends ServiceBase{
      * @throws Exception
      */
     public JSONObject getNearest(String postcode) throws UnirestException {
-
-        System.out.println(this.baseUrl);
-        HttpResponse<JsonNode> jsonResponse = Unirest.get(this.baseUrl.concat(postcode).concat("/nearest")).asJson();
-
+        String uri = this.baseUrl.concat(postcode).concat("/nearest");
+        System.out.println(uri);
+        HttpResponse<JsonNode> jsonResponse = Unirest.get(uri).asJson();
         return jsonResponse.getBody().getObject();
     }
 
@@ -58,7 +53,9 @@ public class PostCodeService extends ServiceBase{
      * @throws UnirestException
      */
     public boolean isValid(String postcode) throws JSONException, UnirestException {
-        return Unirest.get(this.baseUrl.concat(postcode).concat("/validate")).asJson()
+        String uri = this.baseUrl.concat(postcode).concat("/validate");
+        System.out.println(uri);
+        return Unirest.get(uri).asJson()
                 .getBody().getObject().getBoolean("result");
     }
 

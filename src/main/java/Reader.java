@@ -1,12 +1,11 @@
-import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
-import org.json.JSONObject;
-
 import java.util.Scanner;
+
 
 /**
  * @author Tanya Haus
  */
+
 public class Reader {
 
     public static void main(String[] args) throws Exception {
